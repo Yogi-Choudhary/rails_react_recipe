@@ -23,6 +23,27 @@ const Recipe = () => {
     return String(str).replace(/&lt;/g, "<").replace(/&gt;/g, ">");
   };
 
+  const deleteRecipe = () => {
+    const url = `/api/v1/destroy/${params.id}`;
+    const token = document.querySelector('meta[name="csrf-token"]').content;
+
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-Token": token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
+      .then(() => navigate("/recipes"))
+      .catch((error) => console.log(error.message));
+  };
+
   const ingredientList = () => {
     let ingredientList = "No ingredients available";
 
@@ -74,6 +95,7 @@ const Recipe = () => {
             <button
               type="button"
               className="btn btn-danger"
+              onClick={deleteRecipe}
             >
               Delete Recipe
             </button>
