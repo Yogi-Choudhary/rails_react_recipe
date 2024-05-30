@@ -35,10 +35,11 @@ const Recipes = () => {
       </div>
     </div>
   ));
+
   const noRecipe = (
     <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
       <h4>
-        No recipes yet. Why not <Link to="/new_recipe">create one</Link>
+        No recipes yet. Why not <Link to="/recipe/new">create one</Link>
       </h4>
     </div>
   );
@@ -58,7 +59,7 @@ const Recipes = () => {
       <div className="py-5">
         <main className="container">
           <div className="text-end mb-3">
-            <Link to="/recipe" className="btn custom-button">
+            <Link to="/recipe/new" className="btn custom-button">
               Create New Recipe
             </Link>
           </div>
