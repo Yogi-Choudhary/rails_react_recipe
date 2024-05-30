@@ -7,7 +7,11 @@ const EditRecipe = () => {
   // const [name, setName] = useState("");
   // const [ingredients, setIngredients] = useState("");
   // const [instruction, setInstruction] = useState("");
-  const [data, setData] = useState({})
+  const [data, setData] = useState({
+    name: "",
+    ingredients: "",
+    instruction: ""
+  })
 
   useEffect(() => {
     fetch(`/api/v1/show/${id}`)
