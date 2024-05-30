@@ -99,6 +99,9 @@ const Recipe = () => {
             >
               Delete Recipe
             </button>
+            <Link to={`/recipe/${recipe.id}/edit`} className="btn btn-primary mt-2">
+              Edit Recipe
+            </Link>
           </div>
         </div>
         <Link to="/recipes" className="btn btn-link">
