@@ -4,14 +4,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 const EditRecipe = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  // const [name, setName] = useState("");
-  // const [ingredients, setIngredients] = useState("");
-  // const [instruction, setInstruction] = useState("");
-  const [data, setData] = useState({
-    name: "",
-    ingredients: "",
-    instruction: ""
-  })
+  const [name, setName] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [instruction, setInstruction] = useState("");
 
   useEffect(() => {
     fetch(`/api/v1/show/${id}`)
@@ -36,10 +31,8 @@ const EditRecipe = () => {
       .replace(/>/g, "&gt;");
   };
 
-  const onChange = (event) => {
-    const {name, value} = event;
-    setData(name: value)
-    // setFunction(event.target.value);
+  const onChange = (event, setFunction) => {
+    setFunction(event.target.value);
   };
 
   const onSubmit = (event) => {
@@ -49,9 +42,9 @@ const EditRecipe = () => {
     if (name.length === 0 || ingredients.length === 0 || instruction.length === 0) return;
 
     const body = {
-      name: data.name,
-      ingredients: data.ingredients,
-      instruction: stripHtmlEntities(data.instruction),
+      name,
+      ingredients,
+      instruction: stripHtmlEntities(instruction),
     };
 
     const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -89,8 +82,8 @@ const EditRecipe = () => {
                 id="recipeName"
                 className="form-control"
                 required
-                value={data.name}
-                onChange={(event) => onChange(event)}
+                value={name}
+                onChange={(event) => onChange(event, setName)}
               />
             </div>
             <div className="form-group">
@@ -101,8 +94,8 @@ const EditRecipe = () => {
                 id="recipeIngredients"
                 className="form-control"
                 required
-                value={data.ingredients}
-                onChange={(event) => onChange(event)}
+                value={ingredients}
+                onChange={(event) => onChange(event, setIngredients)}
               />
               <small id="ingredientsHelp" className="form-text text-muted">
                 Separate each ingredient with a comma.
@@ -115,8 +108,8 @@ const EditRecipe = () => {
               name="instruction"
               rows="5"
               required
-              value={data.instruction}
-              onChange={(event) => onChange(event)}
+              value={instruction}
+              onChange={(event) => onChange(event, setInstruction)}
             />
             <button type="submit" className="btn custom-button mt-3">
               Update Recipe
